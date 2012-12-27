@@ -2,4 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  
+  if error
+    p #{error}
+
+  p Volume: #{status.volume}
+
+  p Status is #{status.state}
+
+  p Now playing: #{info.Title} by #{info.Artist} from the album #{info.Album}
+
+  form(action='/previous', method='post')
+    button Previous
+
+  form(action='/toggle', method='post')
+    button Play/Pause
+
+  form(action='/next', method='post')
+    button Next
