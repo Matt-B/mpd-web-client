@@ -1,10 +1,5 @@
 var komponist = require('komponist'),
-    hostname = '192.168.5.6';
-    var client = komponist.createConnection(6600, hostname, function(err) {
-      if(err)
-        console.log(err);
-    });
-
+    client = require('../mpd').getClient();
 
 exports.index = function(req, res){  
   client.currentsong(function(err, info) {
@@ -44,7 +39,3 @@ exports.setvol = function(req, res){
     res.redirect('/');
   });
 };
-
-client.on('changed', function(system) {     
-     console.log('Something has happened: '+ system);
-});
