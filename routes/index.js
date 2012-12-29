@@ -1,5 +1,4 @@
-var komponist = require('komponist'),
-    client = require('../mpd').getClient();
+var client = require('../mpd').getClient();
 
 exports.index = function(req, res){  
   client.currentsong(function(err, info) {
