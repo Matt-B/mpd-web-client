@@ -6,7 +6,14 @@ exports.index = function(req, res){
   var client = komponist.createConnection(6600, hostname, function() {
     client.currentsong(function(err, info) {
       client.status(function(err, status) {
-        res.render('index', {title: 'MPD Status', status: status, error: err, info: info });
+        client.listall(function(err, list) {
+          var fileList = [];
+          for(i=0; i < list.length; i++) {
+            if(list[i].file)
+              fileList.push(list[i]);
+          }
+          res.render('index', {title: 'MPD Status', status: status, error: err, info: info, list: fileList });
+        });        
       });          
     });  
   });
@@ -35,3 +42,4 @@ exports.previous = function(req, res){
     });
   });
 };
+
