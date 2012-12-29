@@ -6,7 +6,9 @@ block content
   if error
     p #{error}
 
-  p Volume: #{status.volume}
+  form(action='/setvol', method='post')
+    input(name='volume', value='#{status.volume}')
+    button Set Volume
 
   p Status is #{status.state}
 

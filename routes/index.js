@@ -13,6 +13,7 @@ exports.index = function(req, res){
               fileList.push(list[i]);
           }
           res.render('index', {title: 'MPD Status', status: status, error: err, info: info, list: fileList });
+          client.command('close');
         });        
       });          
     });  
@@ -23,6 +24,7 @@ exports.toggle = function(req, res){
   var client = komponist.createConnection(6600, hostname, function() {
     client.toggle(function(err) {
       res.redirect('/');
+      client.command('close');
     });
   });
 };
@@ -31,6 +33,7 @@ exports.next = function(req, res){
   var client = komponist.createConnection(6600, hostname, function() {
     client.next(function(err) {
       res.redirect('/');
+      client.command('close');
     });
   });
 };
@@ -39,7 +42,16 @@ exports.previous = function(req, res){
   var client = komponist.createConnection(6600, hostname, function() {
     client.previous(function(err) {
       res.redirect('/');
+      client.command('close');
     });
   });
 };
 
+exports.setvol = function(req, res){
+  var client = komponist.createConnection(6600, hostname, function() {
+    client.setvol(req.param('volume'), function(err) {
+      res.redirect('/');
+      client.command('close');
+    });
+  });
+};
