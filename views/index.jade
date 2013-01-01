@@ -17,11 +17,11 @@ block content
             i.icon-pause
           button.btn(onclick="javascript:dispatchCommand('next')", title="next song")
             i.icon-fast-forward
-          button.btn(onclick="javascript:dispatchCommand('setvol', 0)", title="mute")
+          button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': 0 })", title="mute")
             i.icon-volume-off
-          button.btn(onclick="javascript:dispatchCommand('setvol', #{status.volume}-5)", title="volume down")
+          button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': #{status.volume}-5 })", title="volume down")
             i.icon-volume-down
-          button.btn(onclick="javascript:dispatchCommand('setvol', #{status.volume}+5)", title="volume up")
+          button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': #{status.volume}+5 })", title="volume up")
             i.icon-volume-up
     div.row
       p.span8.text-info
