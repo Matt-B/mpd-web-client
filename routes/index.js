@@ -1,6 +1,6 @@
 var client = require('../mpd').getClient();
 
-exports.index = function(req, res){  
+exports.index = function(req, res){
   client.currentsong(function(err, info) {
     client.status(function(err, status) {
       client.listall(function(err, list) {
@@ -16,25 +16,19 @@ exports.index = function(req, res){
 };
 
 exports.toggle = function(req, res){
-  client.toggle(function(err) {
-    res.redirect('/');
-  });
+  client.toggle();
 };
 
 exports.next = function(req, res){
-  client.next(function(err) {
-    res.redirect('/');
-  });
+  client.next();
 };
 
 exports.previous = function(req, res){
-  client.previous(function(err) {
-    res.redirect('/');
-  });
+  client.previous();
 };
 
 exports.setvol = function(req, res){
-  client.setvol(req.param('volume'), function(err) {
-    res.redirect('/');
-  });
+  if (req.param('volume') <= 100 && req.param('volume') >= 0) {
+    client.setvol(req.param('volume'));
+  }
 };

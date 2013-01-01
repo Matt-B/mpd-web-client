@@ -41,7 +41,7 @@ io.sockets.on('connection', function (socket) {
   console.log('A client connected...');
 });
 
-client.on('changed', function(player) {
+client.on('changed', function(change) {
   console.log('change happening, broadcasting...');
-  io.sockets.emit('change', { item: player });
+  io.sockets.emit('change', change);
 });

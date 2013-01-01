@@ -1,38 +1,72 @@
 extends layout
 
 block content
-  
-  script
-    var socket = io.connect('http://localhost:3000');
-    socket.on('change', function (data) {
-      console.log(data);
-      location.reload(true);
-    });
-
-  h1= title
-  
-  if error
-    p #{error}
-
-  form(action='/setvol', method='post')
-    input(name='volume', value='#{status.volume}')
-    button Set Volume
-
-  p Status is #{status.state}
-
-  if info.Title
-    p Now playing: #{info.Title} by #{info.Artist} from the album #{info.Album}
-  else
-    p Now playing: Nothing!
-
-  form(action='/previous', method='post')
-    button Previous
-
-  form(action='/toggle', method='post')
-    button Play/Pause
-
-  form(action='/next', method='post')
-    button Next
-  select
-    each item in list
-      option= item.directory
+  div.container
+    br
+    div#player.row.well
+      div.span8
+        strong
+          |Now Playing: 
+        |#{info.Title} by #{info.Artist} from the album #{info.Album}
+      div.span3
+        div.btn-group
+          button.btn(onclick="javascript:dispatchCommand('previous')", title="previous song")
+            i.icon-fast-backward
+          button.btn(onclick="javascript:dispatchCommand('toggle')", title="play/pause")
+            i.icon-play
+            i.icon-pause
+          button.btn(onclick="javascript:dispatchCommand('next')", title="next song")
+            i.icon-fast-forward
+          button.btn(onclick="javascript:dispatchCommand('setvol', 0)", title="mute")
+            i.icon-volume-off
+          button.btn(onclick="javascript:dispatchCommand('setvol', #{status.volume}-5)", title="volume down")
+            i.icon-volume-down
+          button.btn(onclick="javascript:dispatchCommand('setvol', #{status.volume}+5)", title="volume up")
+            i.icon-volume-up
+    div.row
+      p.span8.text-info
+        |Current status is #{status.state} / Track #{info.Track} / Random: off / Repeat: off
+      div.span1
+        |Volume
+      div.progress.progress-info.span3
+        div.bar(style="width: #{status.volume}%")
+    if error
+      div.row.alert
+        |Some error text
+    
+    div.row.well
+      div.span4
+        p
+          |Coming up next:
+        ol
+          li
+            |All my friends by LCD Soundsystem
+          li
+            |Cut your hair by Pavement
+          li
+            |Claire de line by ...And you will know us by the trail of dead
+      div.span7
+        p
+          |Search for a track to add:
+        form.form-search(onsubmit="javascript:dispatchCommand('search', document.getElementById('searchTerm').value)")
+          div.input-append
+            input#searchTerm.span6.search-query(type="text")
+            button.btn(type="submit")
+              |Search
+         ul.unstyled
+          li
+            |Another song by artist 14785
+            a.pull-right(href="#")
+              |add to playlist
+          li
+            |Another song by artist 14785
+            a.pull-right(href="#")
+              |add to playlist
+          li
+            |Another song by artist 14785
+            a.pull-right(href="#")
+              |add to playlist
+          li
+            |Another song by artist 14785
+            a.pull-right(href="#")
+              |add to playlist
