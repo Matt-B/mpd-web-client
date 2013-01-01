@@ -25,7 +25,16 @@ block content
             i.icon-volume-up
     div.row
       p.span8.text-info
-        |Current status is #{status.state} / Track #{info.Track} / Random: off / Repeat: off
+        |Current status is #{status.state} / #{parseInt(info.Pos) + 1} of #{playlist.length} items / Random: 
+        if status.random === '1'
+          |on 
+        else
+          |off 
+        | / Repeat: 
+        if status.repeat === '1'
+          |on 
+        else
+          |off 
       div.span1
         |Volume
       div.progress.progress-info.span3
@@ -37,14 +46,17 @@ block content
     div.row.well
       div.span4
         p
-          |Coming up next:
-        ol
-          li
-            |All my friends by LCD Soundsystem
-          li
-            |Cut your hair by Pavement
-          li
-            |Claire de line by ...And you will know us by the trail of dead
+          |Current playlist:
+        if playlist
+          ol
+            each playlistitem in playlist
+              if playlistitem.Id === info.Id
+                strong
+                  li
+                    |#{playlistitem.Title} by #{playlistitem.Artist}
+              else
+                li
+                  |#{playlistitem.Title} by #{playlistitem.Artist}          
       div.span7
         p
           |Search for a track to add:
