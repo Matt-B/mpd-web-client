@@ -22,8 +22,32 @@ exports.previous = function(req, res){
   client.previous();
 };
 
+exports.add = function(req, res){
+  client.add(req.param('URI'));
+};
+
 exports.setvol = function(req, res){
   if (req.param('volume') <= 100 && req.param('volume') >= 0) {
     client.setvol(req.param('volume'));
   }
+};
+
+exports.search = function(req, res){
+  var results = [];
+  client.search('title', req.param('searchterm'), function(err, titlesearchresults) {
+    console.log(titlesearchresults);
+    if(titlesearchresults[0].Title)
+      results = results.concat(titlesearchresults);
+    client.search('artist', req.param('searchterm'), function(err, artistsearchresults) {
+      console.log(artistsearchresults);
+      if(artistsearchresults[0].Title)
+        results = results.concat(artistsearchresults);
+      client.search('album', req.param('searchterm'), function(err, albumsearchresults) {
+        console.log(albumsearchresults);
+        if(albumsearchresults[0].Title)
+          results = results.concat(albumsearchresults);
+        res.render('searchresults.jade', { layout: false, searchresults: results });
+      });
+    });
+  });
 };

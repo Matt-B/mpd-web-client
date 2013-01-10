@@ -60,25 +60,11 @@ block content
       div.span7
         p
           |Search for a track to add:
-        form.form-search(onsubmit="javascript:dispatchCommand('search', document.getElementById('searchTerm').value)")
+        form.form-search(action="#", onsubmit="javascript:search(document.getElementById('searchTerm').value )")
           div.input-append
             input#searchTerm.span6.search-query(type="text")
             button.btn(type="submit")
               |Search
-         ul.unstyled
-          li
-            |Another song by artist 14785
-            a.pull-right(href="#")
-              |add to playlist
-          li
-            |Another song by artist 14785
-            a.pull-right(href="#")
-              |add to playlist
-          li
-            |Another song by artist 14785
-            a.pull-right(href="#")
-              |add to playlist
-          li
-            |Another song by artist 14785
-            a.pull-right(href="#")
-              |add to playlist
+        div#searchresults
+          ul.unstyled     
+              

@@ -3,6 +3,7 @@ var express = require('express'),
     routes = require('./routes'),
     http = require('http'),
     path = require('path'),
+    partials = require('express-partials'),
     mpd = require('./mpd'),
     client = mpd.getClient(),
     app = express(),
@@ -20,6 +21,7 @@ app.configure(function(){
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
   app.use(app.router);
+  app.use(partials());
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
@@ -32,6 +34,8 @@ app.post('/toggle', routes.toggle);
 app.post('/next', routes.next);
 app.post('/previous', routes.previous);
 app.post('/setvol', routes.setvol);
+app.post('/search', routes.search);
+app.post('/add', routes.add);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

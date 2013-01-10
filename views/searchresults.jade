@@ -1,0 +1,7 @@
+block content
+  ul.unstyled
+    each searchresult in searchresults
+      li
+        | #{searchresult.Title} by #{searchresult.Artist} 
+        a.pull-right(href="javascript:dispatchCommand('add', { URI: '#{searchresult.file}' })")
+          | add to playlist

@@ -9,6 +9,7 @@
     "express": "3.0.5",
     "jade": "*",
     "komponist": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "express-partials": "*"
   }
 }
