@@ -1,5 +1,5 @@
 var komponist = require('komponist'),
-    mpdHostname = '192.168.5.6',
+    mpdHostname = '192.168.1.101',
     mpdPort = 6600,
     client;
 

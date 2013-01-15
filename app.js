@@ -36,6 +36,9 @@ app.post('/previous', routes.previous);
 app.post('/setvol', routes.setvol);
 app.post('/search', routes.search);
 app.post('/add', routes.add);
+app.post('/delete', routes.delete);
+app.post('/clear', routes.clear);
+app.post('/play', routes.play);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

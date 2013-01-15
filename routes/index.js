@@ -3,7 +3,9 @@ var client = require('../mpd').getClient();
 exports.index = function(req, res){
   client.currentsong(function(err, info) {
     client.status(function(err, status) {
-      client.playlistinfo(function(err, playlist) {        
+      console.log(status);
+      client.playlistinfo(function(err, playlist) {
+        console.log(playlist);
         res.render('index', {title: 'MPD Status', status: status, error: err, info: info, playlist: playlist });
       });        
     });          
@@ -26,10 +28,22 @@ exports.add = function(req, res){
   client.add(req.param('URI'));
 };
 
+exports.delete = function(req, res){
+  client.delete(req.param('Pos'));
+};
+
 exports.setvol = function(req, res){
   if (req.param('volume') <= 100 && req.param('volume') >= 0) {
     client.setvol(req.param('volume'));
   }
+};
+
+exports.clear = function(req, res){
+  client.clear();
+};
+
+exports.play = function(req, res){
+  client.play();
 };
 
 exports.search = function(req, res){

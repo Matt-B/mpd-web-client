@@ -1,7 +1,11 @@
 block content
   ul.unstyled
-    each searchresult in searchresults
+    if searchresults.length > 0
+      each searchresult in searchresults
+        li
+          | #{searchresult.Title} by #{searchresult.Artist} 
+          a.pull-right(href="javascript:dispatchCommand('add', { URI: '#{searchresult.file}' })")
+            | add to playlist
+    else
       li
-        | #{searchresult.Title} by #{searchresult.Artist} 
-        a.pull-right(href="javascript:dispatchCommand('add', { URI: '#{searchresult.file}' })")
-          | add to playlist
+        |No results found.

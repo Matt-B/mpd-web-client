@@ -7,18 +7,20 @@ block content
       div.span8
         strong
           |Now Playing: 
-        |#{info.Title} by #{info.Artist} from the album #{info.Album}
+        if info.Title
+          |#{info.Title} by #{info.Artist} from the album #{info.Album}
+        else
+          |Nothing
       div.span3
         div.btn-group
           button.btn(onclick="javascript:dispatchCommand('previous')", title="previous song")
             i.icon-fast-backward
-          button.btn(onclick="javascript:dispatchCommand('toggle')", title="play/pause")
+          button.btn(onclick="javascript:dispatchCommand('play')", title="play")
             i.icon-play
+          button.btn(onclick="javascript:dispatchCommand('toggle')", title="pause")
             i.icon-pause
           button.btn(onclick="javascript:dispatchCommand('next')", title="next song")
             i.icon-fast-forward
-          button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': 0 })", title="mute")
-            i.icon-volume-off
           button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': #{status.volume}-5 })", title="volume down")
             i.icon-volume-down
           button.btn(onclick="javascript:dispatchCommand('setvol', { 'volume': #{status.volume}+5 })", title="volume up")
@@ -39,31 +41,45 @@ block content
         |Volume
       div.progress.progress-info.span3
         div.bar(style="width: #{status.volume}%")
-    if error
-      div.row.alert
-        |Some error text
+    if status.error
+      div.row.alert.alert-error
+        |MPD Error: #{status.error}
     
+    if error
+      div.row.alert.alert-error
+        |Client Error: #{error}
+
     div.row.well
-      div.span4
+      div.span5
         p
           |Current playlist:
-        if playlist
-          ol
-            each playlistitem in playlist
+        ol
+          each playlistitem in playlist
+            if playlistitem.Title
               if playlistitem.Id === info.Id
                 strong
                   li
                     |#{playlistitem.Title} by #{playlistitem.Artist}
+                    a.pull-right(title="remove", href="javascript:dispatchCommand('delete', { Pos: '#{playlistitem.Pos}' })")
+                      i.icon-remove-sign
               else
                 li
-                  |#{playlistitem.Title} by #{playlistitem.Artist}          
-      div.span7
+                  |#{playlistitem.Title} by #{playlistitem.Artist}
+                  a.pull-right(title="remove", href="javascript:dispatchCommand('delete', { Pos: '#{playlistitem.Pos}' })")
+                    i.icon-remove-sign
+
+        p
+          button.btn.btn-mini.btn-block(onclick="javascript:dispatchCommand('clear')", title="clear playlist")
+            |Clear playlist 
+            i.icon-eject
+
+      div.span6
         p
           |Search for a track to add:
         form.form-search(action="#", onsubmit="javascript:search(document.getElementById('searchTerm').value )")
           div.input-append
-            input#searchTerm.span6.search-query(type="text")
-            button.btn(type="submit")
+            input#searchTerm.span5.search-query(type="text")
+            input.btn(type="submit")
               |Search
         div#searchresults
           ul.unstyled     
