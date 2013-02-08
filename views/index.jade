@@ -27,7 +27,11 @@ block content
             i.icon-volume-up
     div.row
       p.span8.text-info
-        |Current status is #{status.state} / #{parseInt(info.Pos) + 1} of #{playlist.length} items / Random: 
+        |Current status is #{status.state} / 
+        if info.Pos
+          |#{parseInt(info.Pos) + 1} of #{playlist.length} items / Random: 
+        else
+          |Random: 
         if status.random === '1'
           |on 
         else
@@ -76,7 +80,7 @@ block content
       div.span6
         p
           |Search for a track to add:
-        form.form-search(action="#", onsubmit="javascript:search(document.getElementById('searchTerm').value )")
+        form.form-search(action="", onsubmit="javascript:search(document.getElementById('searchTerm').value )")
           div.input-append
             input#searchTerm.span5.search-query(type="text")
             input.btn(type="submit")
