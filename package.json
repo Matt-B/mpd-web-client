@@ -8,8 +8,12 @@
   "dependencies": {
     "express": "3.0.5",
     "jade": "*",
-    "komponist": "*",
-    "socket.io": "*",
-    "express-partials": "*"
+    "komponist": "latest",
+    "socket.io": "latest",
+    "express-partials": "latest"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "chai": "latest"
   }
 }
