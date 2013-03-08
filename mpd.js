@@ -1,9 +1,8 @@
 var komponist = require('komponist'),
     mpdHostname = '192.168.1.101',
     mpdPort = 6600,
+    connected = false,
     client;
-
-console.log('Loaded mpd.js and connecting to MPD');
 
 client = komponist.createConnection(mpdPort, mpdHostname, function(err) {
 	if(err) {
@@ -15,8 +14,25 @@ client = komponist.createConnection(mpdPort, mpdHostname, function(err) {
   }
 });
 
-function getClient() {
+exports.getClient = function() {
 	return client;
-}
+};
 
-exports.getClient = getClient;
+exports.connect = function(port, host) {
+  client = komponist.createConnection(port, host, function(err){
+    if(err)
+      connected = false;
+    else
+      connected = true;
+  });
+};
+
+exports.isConnected = function() {
+  return connected;
+};
+
+exports.pause = function() {
+  client.toggle();
+};
+
+module.exports = exports;
