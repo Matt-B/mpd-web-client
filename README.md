@@ -1,6 +1,8 @@
 mpd-web-client
 ==============
 
+[![Dependency Status](https://david-dm.org/Matt-B/mpd-web-client.png)](https://david-dm.org/Matt-B/mpd-web-client)
+
 mpd-web-client is a very basic web interface for controlling MPD. I run this on a Raspberry Pi at the moment.
 
 At the moment, the interface shows the current playlist, volume controls, play/pause/forward/backward controls and a simple search form to add items to the playlist.
