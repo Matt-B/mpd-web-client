@@ -37,8 +37,21 @@ exports.pause = function() {
 };
 
 exports.setVolume = function(percentage){
+  var currentVolume;
   if(isConnected)
-    client.setvol(percentage);
+    client.status(function(err, status){
+      currentVolume = status.volume;
+    });
+    if(currentVolume !== '-1')
+      client.setvol(percentage);
+};
+
+exports.status = function(){
+  if(isConnected && client){
+    client.status(function(err, status){
+      return status;
+    });
+  }
 };
 
 module.exports = exports;
