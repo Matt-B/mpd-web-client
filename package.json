@@ -15,7 +15,6 @@
   "devDependencies": {
     "mocha": "latest",
     "chai": "latest",
-    "rewire": "latest",
-    "chai-spies": "latest"
+    "rewire": "latest"
   }
 }

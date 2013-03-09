@@ -1,59 +1,55 @@
 var mocha = require('mocha'),
-    chai = require('chai'),
     should = require('chai').should(),
-    spies = require('chai-spies'),
     rewire = require('rewire'),
     mpd = rewire('../mpd.js');
 
-chai.use(spies);
-
 describe('mpd', function(){
 	it('should try and connect to mpd when connect is called', function(){      
-    var spy = chai.spy();
+    var called = 0;
     mpd.__set__("komponist", {
       createConnection: function() {
-        spy();
+        called++;
       }
     });
     mpd.connect(6000, 'localhost');
-    spy.should.have.been.called.once();
+    called.should.equal(1);
   });
 
   it('should make a toggle call to mpd when connected and pause is called', function(){
-    var spy = chai.spy();
+    var called = false;
     mpd.__set__({
       "isConnected": true,
       "client": {
         toggle: function(){
-          spy();
+          called = true;
         }
       }
     });
     mpd.pause();
-    spy.should.have.been.called.once();
+    called.should.equal(true);
   });
 
   it('should not make a toggle call to mpd when not connected and pause is called', function(){
-    var spy = chai.spy();
+    var called = false;
     mpd.__set__({
       "isConnected": false,
       "client": {
         toggle: function(){
-          spy();
+          called = true;
         }
       }
     });
     mpd.pause();
-    spy.should.have.been.not_called;
+    called.should.equal(false);
   });
 
   it('should not try and set volume when mpd reports volume is N/A', function(){
-    var spy = chai.spy();
+    var called = false;
     mpd.__set__({
       "isConnected": true,
-      "komponist": {
+      "client": {
         setvol: function(){
-          spy();
+          called = true;
         },
         status: function(){
           return {
@@ -78,6 +74,6 @@ describe('mpd', function(){
       }
     });
     mpd.setVolume(20);
-    spy.should.have.been.not_called;
+    called.should.equal(false);
   });
 });
