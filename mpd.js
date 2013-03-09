@@ -32,7 +32,8 @@ exports.isConnected = function() {
 };
 
 exports.pause = function() {
-  client.toggle();
+  if(isConnected)
+    client.toggle();
 };
 
 module.exports = exports;
