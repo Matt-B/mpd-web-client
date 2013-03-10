@@ -4,6 +4,7 @@ var mocha = require('mocha'),
     mpd = rewire('../mpd.js');
 
 describe('mpd', function(){
+
 	it('should try and connect to mpd when connect is called', function(){      
     var called = 0;
     mpd.__set__("komponist", {
@@ -11,7 +12,9 @@ describe('mpd', function(){
         called++;
       }
     });
+    
     mpd.connect(6000, 'localhost');
+
     called.should.equal(1);
   });
 
@@ -25,7 +28,9 @@ describe('mpd', function(){
         }
       }
     });
+    
     mpd.pause();
+
     called.should.equal(true);
   });
 
@@ -39,7 +44,9 @@ describe('mpd', function(){
         }
       }
     });
+    
     mpd.pause();
+    
     called.should.equal(false);
   });
 
@@ -56,7 +63,40 @@ describe('mpd', function(){
         }
       }
     });
+    
     mpd.setVolume(20);
+    
     called.should.equal(false);
   });
+
+  it('should return the current status of mpd when status is called and mpd is connected', function(){
+    var statusObject = { 
+      volume: '100',
+      repeat: '0',
+      random: '0',
+      single: '0',
+      consume: '0',
+      playlist: '2',
+      playlistlength: '1',
+      xfade: '0',
+      mixrampdb: '0.000000',
+      mixrampdelay: 'nan',
+      state: 'stop',
+      song: '0',
+      songid: '0' 
+    };
+    var err;
+    mpd.__set__({
+      "connected": true,
+      "client": {
+        status: function(callback){          
+          callback(err, statusObject);
+        }
+      }
+    });
+    mpd.status(function(err, status){
+      status.should.equal(statusObject);
+    });   
+  });
+
 });

@@ -1,5 +1,5 @@
 var komponist = require('komponist'),
-    mpdHostname = '192.168.1.101',
+    mpdHostname = 'localhost',
     mpdPort = 6600,
     connected = false,
     client;
@@ -46,10 +46,10 @@ exports.setVolume = function(percentage){
       client.setvol(percentage);
 };
 
-exports.status = function(){
+exports.status = function(callback){
   if(isConnected && client){
     client.status(function(err, status){
-      return status;
+      callback(err, status);
     });
   }
 };
