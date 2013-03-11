@@ -99,4 +99,21 @@ describe('mpd', function(){
     });   
   });
 
+  it('should make a next call to mpd when connected and next is called', function(){
+    var called = false;
+    mpd.__set__({
+      "isConnected": true,
+      "client": {
+        next: function(){
+          called = true;
+        }
+      }
+    });
+    
+    mpd.next();
+
+    called.should.equal(true);
+  });
+
+
 });

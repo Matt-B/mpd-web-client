@@ -36,6 +36,11 @@ exports.pause = function() {
     client.toggle();
 };
 
+exports.next = function() {
+  if(isConnected)
+    client.next();
+};
+
 exports.setVolume = function(percentage){
   var currentVolume;
   if(isConnected)
