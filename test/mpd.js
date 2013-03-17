@@ -115,5 +115,21 @@ describe('mpd', function(){
     called.should.equal(true);
   });
 
+  it('should make a previous call to mpd when connected and previous is called', function(){
+    var called = false;
+    mpd.__set__({
+      "isConnected": true,
+      "client": {
+        previous: function(){
+          called = true;
+        }
+      }
+    });
+
+    mpd.previous();
+
+    called.should.equal(true);
+  });
+
 
 });

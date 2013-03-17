@@ -36,6 +36,11 @@ exports.pause = function() {
     client.toggle();
 };
 
+exports.previous = function() {
+  if(isConnected)
+    client.previous();
+};
+
 exports.next = function() {
   if(isConnected)
     client.next();
