@@ -131,5 +131,23 @@ describe('mpd', function(){
     called.should.equal(true);
   });
 
+  it('should add a tracks filename to the mpd playlist when add is called with that filename', function(){
+    var called = false;
+    var filename;
+    mpd.__set__({
+      "isConnected": true,
+      "client": {
+        add: function(uri){
+          called = true;
+          filename = uri;
+        }
+      }
+    });
+
+    mpd.add('/home/matt/Music/test.mp3');
+
+    called.should.equal(true);
+    filename.should.equal('/home/matt/Music/test.mp3');
+  });
 
 });

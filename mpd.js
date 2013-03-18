@@ -57,11 +57,16 @@ exports.setVolume = function(percentage){
 };
 
 exports.status = function(callback){
-  if(isConnected && client){
+  if(isConnected){
     client.status(function(err, status){
       callback(err, status);
     });
   }
+};
+
+exports.add = function(file){
+  if(isConnected)
+    client.add(file);
 };
 
 module.exports = exports;
