@@ -69,4 +69,9 @@ exports.add = function(file){
     client.add(file);
 };
 
+exports.clear = function(){
+  if(isConnected)
+    client.clear();
+};
+
 module.exports = exports;

@@ -150,4 +150,21 @@ describe('mpd', function(){
     filename.should.equal('/home/matt/Music/test.mp3');
   });
 
+  it('should attempt to clear the mpd playlist when clear is called', function(){
+    var called = false;
+    var filename;
+    mpd.__set__({
+      "isConnected": true,
+      "client": {
+        clear: function(uri){
+          called = true;          
+        }
+      }
+    });
+
+    mpd.clear();
+
+    called.should.equal(true);
+  });
+
 });
