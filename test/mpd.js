@@ -5,7 +5,7 @@ var mocha = require('mocha'),
 
 describe('mpd', function(){
 
-	it('should try and connect to mpd when connect is called', function(){      
+  it('should try and connect to mpd when connect is called', function(){      
     var called = 0;
     mpd.__set__("komponist", {
       createConnection: function() {
